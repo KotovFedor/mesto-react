@@ -18,15 +18,17 @@ export default function Main({
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    Promise.all([api.getUserInfo(), api.getCards()]).then(
-      ([dataUser, dataCards]) => {
+    Promise.all([api.getUserInfo(), api.getCards()])
+      .then(([dataUser, dataCards]) => {
         setUserName(dataUser.name);
         setUserDescription(dataUser.about);
         setUserAvatar(dataUser.avatar);
         dataCards.forEach((data) => (data.id = dataUser._id));
         setCards(dataCards);
-      }
-    );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   return (

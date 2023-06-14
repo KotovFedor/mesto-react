@@ -1,6 +1,6 @@
 import closeIcon from "../../images/popup__close-icon.svg";
 
-export default function PopupImage({ card, isOpen, onClose }) {
+export default function ImagePopup({ card, isOpen, onClose }) {
   return (
     <section
       className={`popup popup_card-view ${isOpen && "popup_opened"}`}
