@@ -7,13 +7,20 @@ export default function PopupWithForm({
   children,
   isOpen,
   onClose,
+  onSubmit,
+  isSend,
+  isValid = true,
 }) {
   return (
     <section
-      className={`popup popup_${name} ${isOpen && "popup_opened"}`}
+      className={`popup popup_${name} ${isOpen ? "popup_opened" : ""}`}
       aria-label="Форма редактирования профиля"
+      onClick={onClose}
     >
-      <div className="popup__container popup__container-edit-profile-form">
+      <div
+        className="popup__container popup__container-edit-profile-form"
+        onClick={(evt) => evt.stopPropagation()}
+      >
         <button
           className="button popup__close-button"
           type="button"
@@ -33,11 +40,15 @@ export default function PopupWithForm({
         >
           {children}
           <button
-            className="button popup__submit-btn"
+            className={`button popup__submit-btn ${
+              isSend ? "popup__submit-btn_loading" : ""
+            } ${isValid ? "" : "popup__submit-btn_inactive"}`}
             type="submit"
             form="edit-profile-form"
+            disabled={isSend}
+            onClick={onSubmit}
           >
-            {titleBtn || "Сохранить"}
+            {isSend ? "Сохранение..." : titleBtn || "Сохранить"}
           </button>
         </form>
       </div>

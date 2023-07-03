@@ -1,6 +1,9 @@
-import likeBtn from "../../images/element__icon.svg";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
+import BtnLike from "../BtnLike/BtnLike.jsx";
+import { useContext } from "react";
 
-export default function Card({ card, onCardClick }) {
+export default function Card({ card, onCardClick, onDelete }) {
+  const currentUser = useContext(CurrentUserContext);
   return (
     <>
       <img
@@ -9,15 +12,21 @@ export default function Card({ card, onCardClick }) {
         alt={card.name}
         onClick={() => onCardClick({ link: card.link, name: card.name })}
       />
-      <button className="button element__trash-button" />
+
+      {currentUser._id === card.owner._id && (
+        <button
+          className="button element__trash-button"
+          onClick={() => onDelete(card._id)}
+        />
+      )}
+
       <div className="element__container">
         <h2 className="element__text">{card.name}</h2>
-        <div className="like">
-          <button className="button element__button" type="button">
-            <img className="element__icon" src={likeBtn} alt="Кнопка лайка" />
-          </button>
-          <p className="like-count">0</p>
-        </div>
+        <BtnLike
+          likes={card.likes}
+          myId={currentUser._id}
+          cardId={card._id}
+        ></BtnLike>
       </div>
     </>
   );

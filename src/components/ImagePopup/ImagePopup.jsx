@@ -3,10 +3,14 @@ import closeIcon from "../../images/popup__close-icon.svg";
 export default function ImagePopup({ card, isOpen, onClose }) {
   return (
     <section
-      className={`popup popup_card-view ${isOpen && "popup_opened"}`}
+      className={`popup popup_card-view ${isOpen ? "popup_opened" : ""}`}
+      onClick={onClose}
       aria-label="Попап для просмотра фотографий"
     >
-      <div className="popup__container-card-view">
+      <div
+        className="popup__container-card-view"
+        onClick={(evt) => evt.stopPropagation()}
+      >
         <button
           className="button popup__close-button popup__close-button-card-view"
           type="button"
