@@ -33,20 +33,15 @@ export default function PopupWithForm({
           />
         </button>
         <h2 className="popup__text">{title}</h2>
-        <form
-          className="popup__form"
-          name="edit-profile-form"
-          id="edit-profile-form"
-        >
+        <form className="popup__form" name={name} id={name} onSubmit={onSubmit}>
           {children}
           <button
             className={`button popup__submit-btn ${
               isSend ? "popup__submit-btn_loading" : ""
             } ${isValid ? "" : "popup__submit-btn_inactive"}`}
             type="submit"
-            form="edit-profile-form"
+            form={name}
             disabled={isSend}
-            onClick={onSubmit}
           >
             {isSend ? "Сохранение..." : titleBtn || "Сохранить"}
           </button>
